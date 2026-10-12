@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CSC 303 Academic Advisor System — Paul</title>
-  <meta name="description" content="CSC 303 Software Engineering & AI Techniques: Academic Advisor System for Paul (Computer Science Undergraduate)">
+  <title>My Academic Advisor — Paul</title>
+  <meta name="description" content="Personal academic advisor for Paul — CSC 303, Department of Computer Science">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
       <div class="nav-brand">
         <div class="brand-badge">CSC 303</div>
         <div class="brand-text">
-          <h1>Academic Advisor System</h1>
+          <h1>My Academic Advisor</h1>
           <span class="brand-sub">Dr. Felix &bull; Department of Computer Science</span>
         </div>
       </div>
@@ -32,15 +32,15 @@
           <span class="user-avatar" id="navUserAvatar">P</span>
           <div class="user-meta">
             <span class="user-name" id="navUserName">Paul (Student)</span>
-            <span class="user-details" id="navUserDetails">300L &bull; Software Engineering Track</span>
+            <span class="user-details" id="navUserDetails">300L &bull; Computer Science</span>
           </div>
         </div>
-        <button type="button" id="btnPrintSlip" class="nav-btn print-link" title="Generate printable Departmental Advising Slip">
+        <button type="button" id="btnPrintSlip" class="nav-btn print-link" title="Print your advising slip">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          Print Advising Slip
+          Print Slip
         </button>
         <a href="https://colab.research.google.com" target="_blank" rel="noopener" class="nav-btn colab-link" id="colabDirectLink" title="Open Training Notebook on Colab">
-          <span class="colab-dot"></span> Google Colab Notebook
+          <span class="colab-dot"></span> Colab
         </a>
       </div>
     </div>
@@ -48,51 +48,36 @@
 
   <!-- Main Application Content -->
   <main class="content-container">
-    
-    <!-- Top Status Banner -->
-    <section class="status-banner">
-      <div class="banner-pill">
-        <span class="pulse-indicator"></span>
-        <strong>Model Status:</strong> Serialized Scikit-learn Pipeline (<code>academic_advisor_model.pkl</code>) Active
-      </div>
-      <div class="banner-stats">
-        <span>Model Accuracy: <strong>99.6%</strong></span>
-        <span>&bull;</span>
-        <span>GPA Regressor R&sup2;: <strong>0.973</strong></span>
-        <span>&bull;</span>
-        <span>Training Records: <strong>2,500 students</strong></span>
-      </div>
-    </section>
 
     <!-- Two-Column Layout -->
     <div class="dashboard-grid">
 
-      <!-- Left Column: Academic Parameters Form -->
+      <!-- Left Column: My Academic Info -->
       <section class="panel-card form-panel">
         <div class="panel-header">
           <div>
-            <h2 class="panel-title">Student Academic Parameters</h2>
-            <p class="panel-desc">Update your metrics to evaluate academic standing and term load</p>
+            <h2 class="panel-title">My Academic Info</h2>
+            <p class="panel-desc">Adjust your current stats to get advice</p>
           </div>
-          <button type="button" id="btnLoadDefaults" class="btn-text">Reset to Paul's Profile</button>
+          <button type="button" id="btnLoadDefaults" class="btn-text">Reset to My Profile</button>
         </div>
 
         <form id="advisorForm" class="clean-form">
           
           <div class="form-row">
             <div class="form-col">
-              <label for="academicLevel" class="input-label">Academic Level</label>
+              <label for="academicLevel" class="input-label">Level</label>
               <select id="academicLevel" class="input-control">
                 <option value="100L">100 Level</option>
                 <option value="200L">200 Level</option>
-                <option value="300L" selected>300 Level (Current)</option>
+                <option value="300L" selected>300 Level</option>
                 <option value="400L">400 Level (Final Year)</option>
               </select>
             </div>
             <div class="form-col">
-              <label for="specializationTrack" class="input-label">Degree Concentration</label>
+              <label for="specializationTrack" class="input-label">Concentration</label>
               <select id="specializationTrack" class="input-control">
-                <option value="Software Engineering" selected>Software Engineering</option>
+                <option value="Software Engineering">Software Engineering</option>
                 <option value="Artificial Intelligence & Data Science">AI &amp; Data Science</option>
                 <option value="Cybersecurity">Cybersecurity</option>
                 <option value="Networking & Systems">Networking &amp; Systems</option>
@@ -102,31 +87,31 @@
 
           <!-- Academic Performance -->
           <div class="field-section">
-            <h3 class="section-label">Academic Performance</h3>
+            <h3 class="section-label">My Grades</h3>
 
             <div class="range-group">
               <div class="range-header">
-                <label for="currentGpa">Cumulative GPA (CGPA on 5.0 Scale)</label>
-                <span class="range-number" id="valCurrentGpa">4.18</span>
+                <label for="currentGpa">CGPA (out of 5.0)</label>
+                <span class="range-number" id="valCurrentGpa">3.20</span>
               </div>
-              <input type="range" id="currentGpa" min="1.00" max="5.00" step="0.01" value="4.18" class="clean-range">
+              <input type="range" id="currentGpa" min="1.00" max="5.00" step="0.01" value="3.20" class="clean-range">
             </div>
 
             <div class="range-group">
               <div class="range-header">
-                <label for="coreCsAvg">Core Computer Science Average Grade (5.0 Scale)</label>
-                <span class="range-number" id="valCoreCsAvg">4.25</span>
+                <label for="coreCsAvg">Core CS Course Average (out of 5.0)</label>
+                <span class="range-number" id="valCoreCsAvg">3.30</span>
               </div>
-              <input type="range" id="coreCsAvg" min="1.00" max="5.00" step="0.01" value="4.25" class="clean-range">
+              <input type="range" id="coreCsAvg" min="1.00" max="5.00" step="0.01" value="3.30" class="clean-range">
             </div>
 
             <div class="form-row">
               <div class="form-col">
-                <label for="completedCredits" class="input-label">Earned Units (Credits)</label>
-                <input type="number" id="completedCredits" class="input-control" min="0" max="160" value="78">
+                <label for="completedCredits" class="input-label">Units Earned So Far</label>
+                <input type="number" id="completedCredits" class="input-control" min="0" max="160" value="72">
               </div>
               <div class="form-col">
-                <label for="currentCreditLoad" class="input-label">Enrolled Units (Term Load)</label>
+                <label for="currentCreditLoad" class="input-label">Units This Semester</label>
                 <input type="number" id="currentCreditLoad" class="input-control" min="6" max="28" value="18">
               </div>
             </div>
@@ -134,42 +119,42 @@
 
           <!-- Engagement & Workload -->
           <div class="field-section">
-            <h3 class="section-label">Engagement &amp; Workload</h3>
+            <h3 class="section-label">Workload & Habits</h3>
 
             <div class="range-group">
               <div class="range-header">
-                <label for="attendanceRate">Lecture &amp; Lab Attendance</label>
-                <span class="range-number" id="valAttendanceRate">88.5%</span>
+                <label for="attendanceRate">Attendance Rate</label>
+                <span class="range-number" id="valAttendanceRate">80.0%</span>
               </div>
-              <input type="range" id="attendanceRate" min="30.0" max="100.0" step="0.5" value="88.5" class="clean-range">
+              <input type="range" id="attendanceRate" min="30.0" max="100.0" step="0.5" value="80.0" class="clean-range">
             </div>
 
             <div class="range-group">
               <div class="range-header">
-                <label for="studyHours">Self-Study (Hours / Week)</label>
-                <span class="range-number" id="valStudyHours">20.0 hrs</span>
+                <label for="studyHours">Self-Study (hrs / week)</label>
+                <span class="range-number" id="valStudyHours">15.0 hrs</span>
               </div>
-              <input type="range" id="studyHours" min="2.0" max="45.0" step="0.5" value="20.0" class="clean-range">
+              <input type="range" id="studyHours" min="2.0" max="45.0" step="0.5" value="15.0" class="clean-range">
             </div>
 
             <div class="form-row">
               <div class="form-col">
-                <label for="failedCourses" class="input-label">Failed / Carry-over Courses</label>
+                <label for="failedCourses" class="input-label">Carryover Courses</label>
                 <select id="failedCourses" class="input-control">
-                  <option value="0" selected>0 (None)</option>
+                  <option value="0" selected>None</option>
                   <option value="1">1 Course</option>
                   <option value="2">2 Courses</option>
-                  <option value="3">3+ Courses</option>
+                  <option value="3">3+</option>
                 </select>
               </div>
               <div class="form-col">
-                <label for="stressLevel" class="input-label">Reported Academic Stress</label>
+                <label for="stressLevel" class="input-label">How stressed are you?</label>
                 <select id="stressLevel" class="input-control">
-                  <option value="1">1 - Low (Comfortable)</option>
-                  <option value="2" selected>2 - Moderate (Balanced)</option>
-                  <option value="3">3 - Elevated (Challenging)</option>
-                  <option value="4">4 - High (Heavy Workload)</option>
-                  <option value="5">5 - Critical (Severe Overload)</option>
+                  <option value="1">1 — Comfortable</option>
+                  <option value="2" selected>2 — Manageable</option>
+                  <option value="3">3 — Stressful</option>
+                  <option value="4">4 — Very Stressful</option>
+                  <option value="5">5 — Overwhelming</option>
                 </select>
               </div>
             </div>
@@ -177,12 +162,12 @@
 
           <button type="submit" id="btnDiagnose" class="btn-submit">
             <span class="spinner-small hidden" id="spinner"></span>
-            Evaluate Academic Standing (.PKL Inference)
+            Get My Advice
           </button>
         </form>
       </section>
 
-      <!-- Right Column: Advisor Output & Pathway -->
+      <!-- Right Column: Results -->
       <section class="results-panel">
         
         <!-- Summary Cards -->
@@ -192,62 +177,58 @@
             <span class="card-eyebrow">Academic Standing</span>
             <div class="standing-row">
               <span class="status-tag tag-good" id="standingTag">Good Standing</span>
-              <span class="standing-sub" id="standingSub">Low Risk &bull; Dean's List Track</span>
+              <span class="standing-sub" id="standingSub">Low Risk</span>
             </div>
             <div class="bar-container">
               <div class="bar-fill fill-good" id="riskBar" style="width: 15%;"></div>
             </div>
-            <span class="card-footnote" id="riskBreakdown">Risk Probabilities: Low 91.2% | Mod 7.5% | High 1.3%</span>
+            <span class="card-footnote" id="riskBreakdown">Calculating...</span>
           </div>
 
           <div class="summary-card">
             <span class="card-eyebrow">Projected Next-Term GPA</span>
             <div class="metric-row">
-              <span class="metric-val" id="projectedGpaVal">3.83</span>
-              <span class="delta-badge badge-pos" id="gpaDeltaBadge">+0.31</span>
+              <span class="metric-val" id="projectedGpaVal">—</span>
+              <span class="delta-badge badge-pos" id="gpaDeltaBadge"></span>
             </div>
-            <span class="card-footnote">Gradient Boosting Regressor Model</span>
+            <span class="card-footnote">AI prediction based on your current stats</span>
           </div>
 
           <div class="summary-card">
-            <span class="card-eyebrow">Max Recommended Load</span>
+            <span class="card-eyebrow">Recommended Max Load</span>
             <div class="metric-row">
-              <span class="metric-val" id="maxLoadVal">22</span>
-              <span class="metric-unit">Units Max</span>
+              <span class="metric-val" id="maxLoadVal">—</span>
+              <span class="metric-unit">Units</span>
             </div>
-            <span class="card-footnote" id="loadNote">Safe capacity for advanced electives</span>
+            <span class="card-footnote" id="loadNote">Based on your stress & attendance</span>
           </div>
 
         </div>
 
-        <!-- Diagnostic Risk Factors -->
+        <!-- What the AI flagged -->
         <div class="panel-card">
           <div class="panel-header">
-            <h3 class="panel-title-sub">Academic Performance Diagnostics</h3>
+            <h3 class="panel-title-sub">What the AI Flagged</h3>
           </div>
-          <div class="diagnostics-box" id="diagnosticsList">
-            <!-- Dynamic items injected here -->
-          </div>
+          <div class="diagnostics-box" id="diagnosticsList"></div>
         </div>
 
-        <!-- Actionable Advisor Guidance -->
+        <!-- Advisor Recommendations -->
         <div class="panel-card">
           <div class="panel-header">
-            <h3 class="panel-title-sub" id="advisorTitle">Advisor Recommendations for Paul</h3>
+            <h3 class="panel-title-sub" id="advisorTitle">Recommendations for Paul</h3>
           </div>
-          <ul class="advice-list" id="adviceList">
-            <!-- Dynamic advice items injected here -->
-          </ul>
+          <ul class="advice-list" id="adviceList"></ul>
         </div>
 
         <!-- Course Pathway Table -->
         <div class="panel-card">
           <div class="panel-header">
             <div>
-              <h3 class="panel-title-sub">Recommended Course Enrollment Schedule</h3>
-              <p class="panel-desc">Prerequisite-checked courses for upcoming semester</p>
+              <h3 class="panel-title-sub">Courses to Register Next Semester</h3>
+              <p class="panel-desc">Prerequisite-checked for your track</p>
             </div>
-            <span class="track-pill" id="trackPill">Software Engineering</span>
+            <span class="track-pill" id="trackPill">Core CS</span>
           </div>
 
           <div class="table-wrap">
@@ -255,43 +236,41 @@
               <thead>
                 <tr>
                   <th>Code</th>
-                  <th>Course Title</th>
+                  <th>Course</th>
                   <th>Units</th>
-                  <th>Classification</th>
+                  <th>Type</th>
                   <th>Status</th>
                 </tr>
               </thead>
-              <tbody id="courseTableBody">
-                <!-- Dynamic Course rows injected here -->
-              </tbody>
+              <tbody id="courseTableBody"></tbody>
             </table>
           </div>
-        <!-- What-If Target Degree Calculator -->
+        </div>
+
+        <!-- Graduation Goal Calculator -->
         <div class="panel-card no-print">
           <div class="panel-header">
             <div>
-              <h3 class="panel-title-sub">Degree Goal-Seeking Calculator (What-If Simulation)</h3>
-              <p class="panel-desc">Calculates target GPA needed across remaining units to graduate with your desired degree class</p>
+              <h3 class="panel-title-sub">Can I Still Get a First Class?</h3>
+              <p class="panel-desc">See what GPA you need in your remaining units</p>
             </div>
           </div>
           <div class="goal-calculator-wrap">
             <div class="form-row">
               <div class="form-col">
-                <label for="targetClass" class="input-label">Target Degree Classification</label>
+                <label for="targetClass" class="input-label">I want to graduate with</label>
                 <select id="targetClass" class="input-control">
-                  <option value="4.50" selected>First Class Honors (&ge; 4.50 CGPA)</option>
-                  <option value="3.50">Second Class Upper (&ge; 3.50 CGPA)</option>
-                  <option value="3.00">Solid Second Class Lower (&ge; 3.00 CGPA)</option>
+                  <option value="4.50">First Class (&ge; 4.50)</option>
+                  <option value="3.50" selected>Second Class Upper (&ge; 3.50)</option>
+                  <option value="3.00">Second Class Lower (&ge; 3.00)</option>
                 </select>
               </div>
               <div class="form-col">
-                <label for="remainingCredits" class="input-label">Estimated Remaining Units</label>
-                <input type="number" id="remainingCredits" class="input-control" value="44" min="15" max="120">
+                <label for="remainingCredits" class="input-label">Units I have left</label>
+                <input type="number" id="remainingCredits" class="input-control" value="48" min="15" max="120">
               </div>
             </div>
-            <div class="goal-result-box" id="goalResultBox">
-              <!-- Dynamically populated -->
-            </div>
+            <div class="goal-result-box" id="goalResultBox"></div>
           </div>
         </div>
 
@@ -299,7 +278,7 @@
 
     </div>
 
-    <!-- Official Printable Advising Slip (Hidden on screen, visible during Print / PDF) -->
+    <!-- Printable Advising Slip (hidden on screen) -->
     <div id="printSlipContainer" class="print-slip print-only">
       <div class="slip-header">
         <h2>DEPARTMENT OF COMPUTER SCIENCE</h2>
@@ -311,8 +290,8 @@
         <div><strong>Matriculation No:</strong> <span id="slipMatric">CSC/2022/303</span></div>
         <div><strong>Level:</strong> <span id="slipLevel">300L</span></div>
         <div><strong>Degree:</strong> B.Sc. Computer Science</div>
-        <div><strong>Current CGPA:</strong> <span id="slipCurrentGpa">4.18 / 5.0</span></div>
-        <div><strong>Academic Standing:</strong> <span id="slipStanding">Second Class Upper (Good Standing)</span></div>
+        <div><strong>Current CGPA:</strong> <span id="slipCurrentGpa">3.20 / 5.0</span></div>
+        <div><strong>Academic Standing:</strong> <span id="slipStanding">Good Standing</span></div>
         <div><strong>Registered Units:</strong> <span id="slipUnits">18 Units</span></div>
         <div><strong>Date Generated:</strong> <span id="slipDate"></span></div>
       </div>
@@ -340,32 +319,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Technical Specs & Dr Felix Submission Details -->
-    <section class="tech-footer-box">
-      <div class="tech-box-header">
-        <h4>CSC 303 Assignment Submission &amp; Architecture Details</h4>
-        <span class="due-badge">Submission Due: 13th October 2026, 2:00 PM</span>
-      </div>
-      <div class="tech-grid">
-        <div class="tech-item">
-          <strong>Software Engineering Practices</strong>
-          <p>Git version control, clean modular architecture (<code>src/</code>, <code>tests/</code>, <code>web/</code>), 8 automated unit tests with Pytest, REST API design with FastAPI.</p>
-        </div>
-        <div class="tech-item">
-          <strong>AI / ML Techniques</strong>
-          <p>Supervised Random Forest Classifier (99.6% accuracy), Gradient Boosting Regressor ($R^2 = 0.973$), Scikit-learn Pipeline with ColumnTransformer, serialized to <code>.pkl</code>.</p>
-        </div>
-        <div class="tech-item">
-          <strong>Google Colab Pipeline</strong>
-          <p>Notebook available at <code>notebooks/csc303_academic_advisor_model_training.ipynb</code> with dataset synthesis, EDA, cross-validation, and model serialization.</p>
-        </div>
-        <div class="tech-item">
-          <strong>VS Code Optimization</strong>
-          <p>Configured <code>.vscode/settings.json</code>, <code>launch.json</code>, and <code>extensions.json</code> with Pylance type checking, format-on-save, and pytest explorer.</p>
-        </div>
-      </div>
-    </section>
 
   </main>
 

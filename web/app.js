@@ -78,16 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
       matric: 'CSC/2022/303',
       level: '300L',
       track: 'Software Engineering',
-      label: '300L • Software Engineering Track',
+      label: '300L • Computer Science',
       data: {
         academic_level: '300L',
         specialization_track: 'Software Engineering',
-        completed_credits: 78,
+        completed_credits: 72,
         current_credit_load: 18,
-        current_gpa: 4.18,
-        core_cs_avg_grade: 4.25,
-        attendance_rate: 88.5,
-        study_hours_per_week: 20.0,
+        current_gpa: 3.20,
+        core_cs_avg_grade: 3.30,
+        attendance_rate: 80.0,
+        study_hours_per_week: 15.0,
         failed_courses_count: 0,
         stress_level: 2
       }

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdvisrAI — CSC 303 Academic Advisor System | Dr. Felix Assignment</title>
+  <meta name="description" content="AI-Powered Student Academic Advisor System combining standard software engineering and machine learning techniques for CSC 303.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="dark-theme">
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-layout">
+    <!-- Header / Navbar -->
+    <header class="app-header">
+      <div class="header-branding">
+        <div class="logo-badge">
+          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <h1 class="brand-title">AdvisrAI <span class="brand-version">v1.0</span></h1>
+            <span class="status-pill active-pill" id="modelStatusPill">
+              <span class="status-dot"></span> .PKL Model Live
+            </span>
+          </div>
+          <p class="brand-subtitle">CSC 303: Software Engineering &amp; AI Techniques &bull; Dr. Felix's Assignment</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnLoadMyself" class="btn btn-secondary">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          Load My Profile (Paul)
+        </button>
+        <button id="btnOpenColabModal" class="btn btn-colab">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16.9 14.5c-.7 0-1.3.4-1.6 1-.7-.4-1.6-.6-2.5-.6s-1.8.2-2.5.6c-.3-.6-.9-1-1.6-1-1 0-1.8.8-1.8 1.8 0 1 .8 1.8 1.8 1.8.7 0 1.3-.4 1.6-1 .7.4 1.6.6 2.5.6s1.8-.2 2.5-.6c.3.6.9 1 1.6 1 1 0 1.8-.8 1.8-1.8 0-1-.8-1.8-1.8-1.8z"/>
+          </svg>
+          Colab Notebook
+        </button>
+        <button id="btnOpenChecklist" class="btn btn-outline">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          Assignment Checklist
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-grid">
+      <!-- Left Column: Student Academic Input Profile -->
+      <section class="card input-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="card-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="card-title">Student Academic Profile</h2>
+              <p class="card-desc">Configure academic metrics for AI diagnosis &amp; degree planning</p>
+            </div>
+          </div>
+          <button id="btnResetForm" class="btn-icon-only" title="Reset to Defaults">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+            </svg>
+          </button>
+        </div>
+
+        <form id="advisorForm" class="advisor-form">
+          <!-- Degree & Level Section -->
+          <div class="form-row-grid">
+            <div class="form-field">
+              <label for="academicLevel" class="field-label">Academic Level</label>
+              <select id="academicLevel" class="custom-select">
+                <option value="100L">100L (Freshman Year)</option>
+                <option value="200L">200L (Sophomore Year)</option>
+                <option value="300L" selected>300L (Junior Year / CSC 303)</option>
+                <option value="400L">400L (Finalist Year)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="specializationTrack" class="field-label">Specialization Track</label>
+              <select id="specializationTrack" class="custom-select">
+                <option value="Software Engineering" selected>Software Engineering</option>
+                <option value="Artificial Intelligence & Data Science">AI &amp; Data Science</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Networking & Systems">Networking &amp; Systems</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Academic Metrics Sliders -->
+          <div class="form-group-box">
+            <div class="form-group-title">Cumulative Performance Metrics</div>
+
+            <div class="slider-field">
+              <div class="slider-header">
+                <label for="currentGpa">Cumulative GPA (CGPA)</label>
+                <span class="slider-val-badge" id="valCurrentGpa">3.52</span>
+              </div>
+              <input type="range" id="currentGpa" min="1.00" max="4.00" step="0.01" value="3.52" class="range-slider">
+              <div class="slider-ticks"><span>1.0 (Probation)</span><span>2.5 (Average)</span><span>4.0 (First Class)</span></div>
+            </div>
+
+            <div class="slider-field">
+              <div class="slider-header">
+                <label for="coreCsAvg">Core CS Course GPA (e.g. CSC 201/205)</label>
+                <span class="slider-val-badge" id="valCoreCsAvg">3.60</span>
+              </div>
+              <input type="range" id="coreCsAvg" min="1.00" max="4.00" step="0.01" value="3.60" class="range-slider">
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-field">
+                <label for="completedCredits" class="field-label">Completed Credits</label>
+                <input type="number" id="completedCredits" class="custom-input" min="0" max="160" value="78">
+              </div>
+              <div class="form-field">
+                <label for="currentCreditLoad" class="field-label">Current Term Load (Units)</label>
+                <input type="number" id="currentCreditLoad" class="custom-input" min="6" max="28" value="18">
+              </div>
+            </div>
+          </div>
+
+          <!-- Behavioral & Workload Factors -->
+          <div class="form-group-box">
+            <div class="form-group-title">Study Habits &amp; Commitments</div>
+
+            <div class="slider-field">
+              <div class="slider-header">
+                <label for="attendanceRate">Class &amp; Lab Attendance Rate</label>
+                <span class="slider-val-badge" id="valAttendanceRate">88.5%</span>
+              </div>
+              <input type="range" id="attendanceRate" min="30.0" max="100.0" step="0.5" value="88.5" class="range-slider">
+              <div class="slider-ticks"><span>&lt;75% Risk Line</span><span>85% Good</span><span>100% Exemplary</span></div>
+            </div>
+
+            <div class="slider-field">
+              <div class="slider-header">
+                <label for="studyHours">Independent Study (Hours/Week)</label>
+                <span class="slider-val-badge" id="valStudyHours">20.0 hrs</span>
+              </div>
+              <input type="range" id="studyHours" min="2.0" max="45.0" step="0.5" value="20.0" class="range-slider">
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-field">
+                <label for="failedCourses" class="field-label">Carry-over / Failed Courses</label>
+                <select id="failedCourses" class="custom-select">
+                  <option value="0" selected>0 (No deficiencies)</option>
+                  <option value="1">1 Failed Course</option>
+                  <option value="2">2 Failed Courses</option>
+                  <option value="3">3+ Failed Courses</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="stressLevel" class="field-label">Reported Stress Level (1-5)</label>
+                <select id="stressLevel" class="custom-select">
+                  <option value="1">1 - Very Low (Relaxed)</option>
+                  <option value="2" selected>2 - Moderate (Manageable)</option>
+                  <option value="3">3 - Elevated (Busy)</option>
+                  <option value="4">4 - High (Strained)</option>
+                  <option value="5">5 - Critical (Severe Overload)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" id="btnDiagnose" class="btn btn-primary btn-block">
+            <span class="spinner-inline hidden" id="diagnoseSpinner"></span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Run AI Advising Diagnostic (.PKL)
+          </button>
+        </form>
+      </section>
+
+      <!-- Right Column: AI Model Intelligence & Degree Guidance Dashboard -->
+      <section class="results-column">
+        <!-- Top Metrics Row -->
+        <div class="kpi-grid">
+          <!-- Standing & Risk Status -->
+          <div class="card kpi-card" id="kpiRiskCard">
+            <div class="kpi-label">AI Academic Standing</div>
+            <div class="kpi-value-row">
+              <span class="risk-badge risk-low" id="kpiRiskBadge">Low Risk</span>
+              <span class="standing-caption" id="kpiStandingCaption">Dean's List Track</span>
+            </div>
+            <!-- Mini Gauge Indicator -->
+            <div class="risk-meter-track">
+              <div class="risk-meter-fill fill-low" id="kpiRiskMeter" style="width: 15%;"></div>
+            </div>
+            <div class="kpi-footer-text" id="kpiRiskProb">Low: 91.2% | Mod: 7.5% | High: 1.3%</div>
+          </div>
+
+          <!-- Projected GPA -->
+          <div class="card kpi-card">
+            <div class="kpi-label">Projected Next-Term GPA</div>
+            <div class="kpi-value-row">
+              <span class="gpa-number" id="kpiProjectedGpa">3.68</span>
+              <span class="gpa-delta delta-positive" id="kpiGpaDelta">+0.16</span>
+            </div>
+            <div class="kpi-footer-text">Forecasted via GradientBoosting Regressor</div>
+          </div>
+
+          <!-- Max Recommended Load -->
+          <div class="card kpi-card">
+            <div class="kpi-label">Max Recommended Term Units</div>
+            <div class="kpi-value-row">
+              <span class="units-number" id="kpiMaxCredits">22</span>
+              <span class="units-label">Credits Cap</span>
+            </div>
+            <div class="kpi-footer-text" id="kpiLoadAdvisory">Safe capacity for academic honors</div>
+          </div>
+        </div>
+
+        <!-- Academic Diagnostics & Diagnostic Factors -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge badge-warning">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Diagnostic Risk Factor Analysis</h3>
+                <p class="card-desc">Features identified by AI as critical performance drivers</p>
+              </div>
+            </div>
+          </div>
+          <div class="diagnostics-list" id="diagnosticsContainer">
+            <!-- Dynamic Diagnostic items injected here -->
+          </div>
+        </div>
+
+        <!-- Personalized Advising Action Plan -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge badge-info">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Personalized Advisor Action Plan</h3>
+                <p class="card-desc">Tailored prescriptive strategies for academic excellence</p>
+              </div>
+            </div>
+          </div>
+          <ul class="recommendations-list" id="recommendationsContainer">
+            <!-- Dynamic Action items injected here -->
+          </ul>
+        </div>
+
+        <!-- Course Pathway & Enrollment Recommender -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge badge-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="card-title">Recommended Course Pathway</h3>
+                <p class="card-desc">Optimized enrollment schedule ensuring prerequisite compliance</p>
+              </div>
+            </div>
+            <span class="badge-tag" id="trackBadge">Software Engineering</span>
+          </div>
+
+          <div class="table-container">
+            <table class="course-table">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Title</th>
+                  <th>Units</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="courseTableBody">
+                <!-- Dynamic Course rows injected here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>CSC 303 Assignment &bull; Dr. Felix &bull; Submission Deadline: 13th October 2026, 2:00 PM</div>
+      <div class="footer-links">
+        <span>Engineered with Python, Scikit-learn, FastAPI, VS Code, Git, and Colab</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL: Assignment Requirements Checklist -->
+  <div class="modal-backdrop hidden" id="checklistModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">CSC 303 Assignment Compliance Audit</h3>
+        <button class="btn-close" id="btnCloseChecklist">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Verification of all mandatory assignment criteria outlined by Dr. Felix:</p>
+        <ul class="checklist-items">
+          <li class="checklist-item checked">
+            <span class="check-icon">&#10003;</span>
+            <div class="check-text">
+              <strong>Git Installed</strong>
+              <span>Verified local Git v2.55.0 environment, configured repo tracking and commits.</span>
+            </div>
+          </li>
+          <li class="checklist-item checked">
+            <span class="check-icon">&#10003;</span>
+            <div class="check-text">
+              <strong>GitHub Installed / Configured</strong>
+              <span>Configured GitHub CLI / Desktop remote connection ready for repository sync.</span>
+            </div>
+          </li>
+          <li class="checklist-item checked">
+            <span class="check-icon">&#10003;</span>
+            <div class="check-text">
+              <strong>Repository Created</strong>
+              <span>Structured repository with standard software engineering practices (src, tests, models, docs).</span>
+            </div>
+          </li>
+          <li class="checklist-item checked">
+            <span class="check-icon">&#10003;</span>
+            <div class="check-text">
+              <strong>Python Optimized VSCode</strong>
+              <span>Configured <code>.vscode/settings.json</code>, <code>extensions.json</code>, and <code>launch.json</code> (Pylance, Ruff, Pytest).</span>
+            </div>
+          </li>
+          <li class="checklist-item checked">
+            <span class="check-icon">&#10003;</span>
+            <div class="check-text">
+              <strong>Model Built on Google Colab</strong>
+              <span>Full standalone Jupyter notebook (<code>.ipynb</code>) with Colab badge, EDA, cross-validation, and .pkl export.</span>
+            </div>
+          </li>
+          <li class="checklist-item checked">
+            <span class="check-icon">&#10003;</span>
+            <div class="check-text">
+              <strong>.PKL File Deployed &amp; Tested on Web Application</strong>
+              <span>Trained pipeline serialized to <code>.pkl</code> and deployed with FastAPI backend and responsive web UI.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="btnConfirmChecklist">All Criteria Met (100%)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Google Colab & Model Architecture Info -->
+  <div class="modal-backdrop hidden" id="colabModal">
+    <div class="modal-box modal-large">
+      <div class="modal-header">
+        <h3 class="modal-title">Google Colab Model Pipeline &amp; Artifact Details</h3>
+        <button class="btn-close" id="btnCloseColabModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="colab-banner">
+          <div class="colab-logo">CO</div>
+          <div>
+            <h4>Google Colab Ready</h4>
+            <p>The model training workflow is packaged into a self-contained notebook at <code>notebooks/csc303_academic_advisor_model_training.ipynb</code>.</p>
+          </div>
+        </div>
+
+        <div class="model-stats-grid" id="modalStatsGrid">
+          <div class="stat-tile">
+            <div class="stat-number" id="modalAccuracy">--%</div>
+            <div class="stat-caption">Classification Accuracy</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-number" id="modalR2">--</div>
+            <div class="stat-caption">GPA Regression R² Score</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-number">2,500</div>
+            <div class="stat-caption">Training Records</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-number">.PKL</div>
+            <div class="stat-caption">Pickle Serialization Format</div>
+          </div>
+        </div>
+
+        <h4 class="section-subheading">Feature Importances (Ensemble Model)</h4>
+        <div class="importance-bars" id="modalImportanceContainer">
+          <!-- Dynamic bars -->
+        </div>
+
+        <div class="code-preview-box">
+          <div class="code-preview-header">
+            <span>notebooks/csc303_academic_advisor_model_training.ipynb</span>
+          </div>
+          <pre><code># Google Colab Execution Snippet:
+import pickle
+with open('models/academic_advisor_model.pkl', 'rb') as f:
+    artifact = pickle.load(f)
+clf = artifact['classifier_pipeline']
+print("Classes:", clf.classes_)</code></pre>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnTriggerRetrain">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+          Retrain &amp; Re-export .PKL
+        </button>
+        <button class="btn btn-primary" id="btnCloseColabModalBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -24,13 +24,21 @@
       </div>
 
       <div class="nav-user">
+        <select id="profileSwitcher" class="profile-switcher" title="Switch student profile">
+          <option value="paul">👤 Paul</option>
+          <option value="abah">👤 Abah Benjamin</option>
+        </select>
         <div class="user-chip">
-          <span class="user-avatar">P</span>
+          <span class="user-avatar" id="navUserAvatar">P</span>
           <div class="user-meta">
-            <span class="user-name">Paul (Student)</span>
-            <span class="user-details">300L &bull; Software Engineering Track</span>
+            <span class="user-name" id="navUserName">Paul (Student)</span>
+            <span class="user-details" id="navUserDetails">300L &bull; Software Engineering Track</span>
           </div>
         </div>
+        <button type="button" id="btnPrintSlip" class="nav-btn print-link" title="Generate printable Departmental Advising Slip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print Advising Slip
+        </button>
         <a href="https://colab.research.google.com" target="_blank" rel="noopener" class="nav-btn colab-link" id="colabDirectLink" title="Open Training Notebook on Colab">
           <span class="colab-dot"></span> Google Colab Notebook
         </a>
@@ -225,7 +233,7 @@
         <!-- Actionable Advisor Guidance -->
         <div class="panel-card">
           <div class="panel-header">
-            <h3 class="panel-title-sub">Advisor Recommendations for Paul</h3>
+            <h3 class="panel-title-sub" id="advisorTitle">Advisor Recommendations for Paul</h3>
           </div>
           <ul class="advice-list" id="adviceList">
             <!-- Dynamic advice items injected here -->
@@ -258,10 +266,79 @@
               </tbody>
             </table>
           </div>
+        <!-- What-If Target Degree Calculator -->
+        <div class="panel-card no-print">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title-sub">Degree Goal-Seeking Calculator (What-If Simulation)</h3>
+              <p class="panel-desc">Calculates target GPA needed across remaining units to graduate with your desired degree class</p>
+            </div>
+          </div>
+          <div class="goal-calculator-wrap">
+            <div class="form-row">
+              <div class="form-col">
+                <label for="targetClass" class="input-label">Target Degree Classification</label>
+                <select id="targetClass" class="input-control">
+                  <option value="4.50" selected>First Class Honors (&ge; 4.50 CGPA)</option>
+                  <option value="3.50">Second Class Upper (&ge; 3.50 CGPA)</option>
+                  <option value="3.00">Solid Second Class Lower (&ge; 3.00 CGPA)</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <label for="remainingCredits" class="input-label">Estimated Remaining Units</label>
+                <input type="number" id="remainingCredits" class="input-control" value="44" min="15" max="120">
+              </div>
+            </div>
+            <div class="goal-result-box" id="goalResultBox">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
         </div>
 
       </section>
 
+    </div>
+
+    <!-- Official Printable Advising Slip (Hidden on screen, visible during Print / PDF) -->
+    <div id="printSlipContainer" class="print-slip print-only">
+      <div class="slip-header">
+        <h2>DEPARTMENT OF COMPUTER SCIENCE</h2>
+        <h3>STUDENT ACADEMIC ADVISING &amp; COURSE REGISTRATION CLEARANCE</h3>
+        <p>CSC 303: Software Engineering &bull; Level Advisor: Dr. Felix</p>
+      </div>
+      <div class="slip-meta-grid">
+        <div><strong>Student Name:</strong> <span id="slipStudentName">Paul</span></div>
+        <div><strong>Matriculation No:</strong> <span id="slipMatric">CSC/2022/303</span></div>
+        <div><strong>Level:</strong> <span id="slipLevel">300L</span></div>
+        <div><strong>Degree:</strong> B.Sc. Computer Science</div>
+        <div><strong>Current CGPA:</strong> <span id="slipCurrentGpa">4.18 / 5.0</span></div>
+        <div><strong>Academic Standing:</strong> <span id="slipStanding">Second Class Upper (Good Standing)</span></div>
+        <div><strong>Registered Units:</strong> <span id="slipUnits">18 Units</span></div>
+        <div><strong>Date Generated:</strong> <span id="slipDate"></span></div>
+      </div>
+      <div class="slip-courses-section">
+        <h4>Approved Courses for Upcoming Semester:</h4>
+        <table class="slip-table" id="slipCoursesTable">
+          <thead>
+            <tr><th>Course Code</th><th>Title</th><th>Units</th><th>Classification</th></tr>
+          </thead>
+          <tbody id="slipCoursesBody"></tbody>
+        </table>
+      </div>
+      <div class="slip-advisory-notes">
+        <h4>Advisor Comments &amp; AI Recommendations:</h4>
+        <p id="slipNotes"></p>
+      </div>
+      <div class="slip-signatures">
+        <div class="sig-col">
+          <div class="sig-line"></div>
+          <span>Student's Signature &amp; Date</span>
+        </div>
+        <div class="sig-col">
+          <div class="sig-line"></div>
+          <span>Level Advisor: Dr. Felix (Signature &amp; Stamp)</span>
+        </div>
+      </div>
     </div>
 
     <!-- Technical Specs & Dr Felix Submission Details -->

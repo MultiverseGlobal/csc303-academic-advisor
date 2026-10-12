@@ -23,9 +23,9 @@ def test_synthetic_dataset_generation():
     assert "risk_status" in df.columns
     assert "projected_next_gpa" in df.columns
     
-    # Check boundaries
+    # Check boundaries (5.0 scale)
     assert df["current_gpa"].min() >= 1.0
-    assert df["current_gpa"].max() <= 4.0
+    assert df["current_gpa"].max() <= 5.0
     assert df["attendance_rate"].min() >= 0.0
     assert df["attendance_rate"].max() <= 100.0
     assert set(df["risk_status"].unique()).issubset({"Low Risk", "Moderate Risk", "High Risk"})

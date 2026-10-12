@@ -139,38 +139,42 @@ class AcademicAdvisorEngine:
             prob_dict = {cls: round(float(p) * 100, 1) for cls, p in zip(classes, probabilities)}
 
             projected_gpa = float(reg.predict(df_input)[0])
-            projected_gpa = max(1.0, min(4.0, round(projected_gpa, 2)))
+            projected_gpa = max(1.0, min(5.0, round(projected_gpa, 2)))
         else:
             # Fallback heuristic if .pkl not yet trained
             gpa = input_row["current_gpa"]
             att = input_row["attendance_rate"]
             fc = input_row["failed_courses_count"]
-            if gpa < 2.3 or att < 65 or fc >= 2:
+            if gpa < 2.5 or att < 65 or fc >= 2:
                 predicted_risk = "High Risk"
                 prob_dict = {"High Risk": 85.0, "Moderate Risk": 12.0, "Low Risk": 3.0}
-            elif gpa >= 3.3 and att >= 80 and fc == 0:
+            elif gpa >= 3.5 and att >= 75 and fc == 0:
                 predicted_risk = "Low Risk"
                 prob_dict = {"Low Risk": 88.0, "Moderate Risk": 10.0, "High Risk": 2.0}
             else:
                 predicted_risk = "Moderate Risk"
                 prob_dict = {"Moderate Risk": 75.0, "Low Risk": 15.0, "High Risk": 10.0}
-            projected_gpa = max(1.0, min(4.0, round(gpa + 0.05, 2)))
+            projected_gpa = max(1.0, min(5.0, round(gpa + 0.05, 2)))
 
         gpa_delta = round(projected_gpa - input_row["current_gpa"], 2)
 
-        # Max recommended credit load calculation
+        # Max recommended credit load calculation (5.0 Scale)
+        g = input_row["current_gpa"]
         if predicted_risk == "High Risk":
             max_recommended_credits = 15
             risk_badge_class = "danger"
-            standing_summary = "Urgent Academic Intervention Required"
+            standing_summary = "Academic Warning (Credit Load Capped for Remediation)"
         elif predicted_risk == "Moderate Risk":
             max_recommended_credits = 18
             risk_badge_class = "warning"
-            standing_summary = "Good Progress, Targeted Optimization Needed"
+            standing_summary = "Second Class Lower (Standard Load Advised)"
         else:
             max_recommended_credits = 22
             risk_badge_class = "success"
-            standing_summary = "Exemplary Academic Standing (Dean's List Track)"
+            if g >= 4.50:
+                standing_summary = "First Class Honors Track (Dean's List)"
+            else:
+                standing_summary = "Second Class Upper (Strong Standing)"
 
         # Diagnostic Risk Factor Identification
         diagnostics = []

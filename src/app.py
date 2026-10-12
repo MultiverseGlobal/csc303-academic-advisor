@@ -44,8 +44,8 @@ class StudentProfileInput(BaseModel):
     specialization_track: str = Field(default="Software Engineering", description="Degree concentration")
     completed_credits: int = Field(default=78, ge=0, le=160, description="Cumulative credit units passed")
     current_credit_load: int = Field(default=18, ge=6, le=30, description="Credits registered this term")
-    current_gpa: float = Field(default=3.52, ge=0.0, le=5.0, description="Cumulative Grade Point Average")
-    core_cs_avg_grade: float = Field(default=3.60, ge=0.0, le=5.0, description="Average grade in core CS courses")
+    current_gpa: float = Field(default=4.18, ge=0.0, le=5.0, description="Cumulative Grade Point Average (5.0 Scale)")
+    core_cs_avg_grade: float = Field(default=4.25, ge=0.0, le=5.0, description="Average grade in core CS courses")
     attendance_rate: float = Field(default=88.5, ge=0.0, le=100.0, description="Lecture & lab attendance percentage")
     study_hours_per_week: float = Field(default=20.0, ge=0.0, le=60.0, description="Weekly independent study hours")
     failed_courses_count: int = Field(default=0, ge=0, le=10, description="Outstanding unpassed courses")
@@ -58,6 +58,7 @@ def health_check():
     return {
         "status": "healthy",
         "service": "CSC 303 Academic Advisor System",
+        "grading_scale": "5.0 CGPA",
         "model_loaded": engine.is_model_loaded(),
         "model_file": engine.pkl_model_path
     }
@@ -71,7 +72,7 @@ def get_model_info():
 
 @app.get("/api/student-profile/default")
 def get_default_student_profile():
-    """Returns a realistic default profile for 'myself' (CSC 303 student) for quick evaluation."""
+    """Returns a realistic default profile for Paul (CSC 303 student) calibrated on 5.0 scale."""
     return {
         "student_name": "Paul (CSC 303 Student)",
         "matric_number": "CSC/2022/303",
@@ -80,8 +81,8 @@ def get_default_student_profile():
         "specialization_track": "Software Engineering",
         "completed_credits": 78,
         "current_credit_load": 18,
-        "current_gpa": 3.52,
-        "core_cs_avg_grade": 3.60,
+        "current_gpa": 4.18,
+        "core_cs_avg_grade": 4.25,
         "attendance_rate": 88.5,
         "study_hours_per_week": 20.0,
         "failed_courses_count": 0,

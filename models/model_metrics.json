@@ -1,58 +1,58 @@
 {
-  "classification_accuracy": 0.996,
+  "classification_accuracy": 0.998,
   "classification_report": {
     "High Risk": {
       "precision": 1.0,
-      "recall": 0.9896907216494846,
-      "f1-score": 0.9948186528497409,
-      "support": 194.0
+      "recall": 0.9917355371900827,
+      "f1-score": 0.995850622406639,
+      "support": 121.0
     },
     "Low Risk": {
       "precision": 1.0,
       "recall": 1.0,
       "f1-score": 1.0,
-      "support": 30.0
+      "support": 119.0
     },
     "Moderate Risk": {
-      "precision": 0.9928057553956835,
+      "precision": 0.9961685823754789,
       "recall": 1.0,
-      "f1-score": 0.9963898916967509,
-      "support": 276.0
+      "f1-score": 0.9980806142034548,
+      "support": 260.0
     },
-    "accuracy": 0.996,
+    "accuracy": 0.998,
     "macro avg": {
-      "precision": 0.9976019184652278,
-      "recall": 0.9965635738831615,
-      "f1-score": 0.9970695148488306,
+      "precision": 0.9987228607918263,
+      "recall": 0.997245179063361,
+      "f1-score": 0.9979770788700314,
       "support": 500.0
     },
     "weighted avg": {
-      "precision": 0.9960287769784173,
-      "recall": 0.996,
-      "f1-score": 0.9959968575223059,
+      "precision": 0.998007662835249,
+      "recall": 0.998,
+      "f1-score": 0.9979977700082031,
       "support": 500.0
     }
   },
-  "regression_r2": 0.9734,
-  "regression_rmse": 0.1328,
+  "regression_r2": 0.9767,
+  "regression_rmse": 0.1416,
   "feature_importances": {
-    "current_gpa": 0.4463,
-    "core_cs_avg_grade": 0.1731,
-    "attendance_rate": 0.1316,
-    "failed_courses_count": 0.1287,
-    "study_hours_per_week": 0.0472,
-    "current_credit_load": 0.0192,
-    "stress_level": 0.0184,
-    "extracurricular_hours": 0.0133,
-    "completed_credits": 0.0117,
-    "specialization_track_Artificial Intelligence & Data Science": 0.0024,
-    "specialization_track_Software Engineering": 0.0014,
-    "specialization_track_Cybersecurity": 0.0014,
-    "specialization_track_Networking & Systems": 0.0013,
-    "academic_level_300L": 0.0013,
-    "academic_level_200L": 0.0011,
-    "academic_level_100L": 0.0009,
-    "academic_level_400L": 0.0008
+    "failed_courses_count": 0.303,
+    "current_gpa": 0.2416,
+    "attendance_rate": 0.2035,
+    "core_cs_avg_grade": 0.1199,
+    "study_hours_per_week": 0.037,
+    "current_credit_load": 0.0367,
+    "completed_credits": 0.0156,
+    "extracurricular_hours": 0.0146,
+    "stress_level": 0.0137,
+    "specialization_track_Artificial Intelligence & Data Science": 0.0027,
+    "specialization_track_Software Engineering": 0.0025,
+    "specialization_track_Cybersecurity": 0.0019,
+    "academic_level_300L": 0.0016,
+    "specialization_track_Networking & Systems": 0.0016,
+    "academic_level_400L": 0.0014,
+    "academic_level_100L": 0.0013,
+    "academic_level_200L": 0.0013
   },
   "total_training_samples": 2500
 }

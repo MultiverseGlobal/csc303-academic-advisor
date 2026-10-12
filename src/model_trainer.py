@@ -60,18 +60,19 @@ def generate_synthetic_academic_dataset(n_samples: int = 2500, random_state: int
     ).astype(int)
 
     # Core CS GPA foundation
-    base_ability = (study_hours / 35.0) * 1.5 + (attendance_rate / 100.0) * 1.8 - (stress_level / 5.0) * 0.5 + np.random.normal(0, 0.3, n_samples)
-    current_gpa = np.clip(np.round(base_ability + 0.8, 2), 1.20, 4.00)
-    core_cs_avg_grade = np.clip(np.round(current_gpa + np.random.normal(-0.1, 0.25, n_samples), 2), 1.00, 4.00)
+    # 5.0 CGPA Scale Calibration (First Class: >=4.50, 2:1: 3.50-4.49, 2:2: 2.50-3.49, Third Class/Probation: <2.50)
+    base_ability = (study_hours / 35.0) * 1.8 + (attendance_rate / 100.0) * 2.2 - (stress_level / 5.0) * 0.6 + np.random.normal(0, 0.35, n_samples)
+    current_gpa = np.clip(np.round(base_ability + 1.2, 2), 1.50, 5.00)
+    core_cs_avg_grade = np.clip(np.round(current_gpa + np.random.normal(-0.1, 0.25, n_samples), 2), 1.00, 5.00)
 
     # Failed courses correlated with low attendance and low core grade
-    failed_prob = np.clip((4.0 - core_cs_avg_grade) * 0.25 + (100 - attendance_rate) * 0.015, 0, 0.9)
+    failed_prob = np.clip((5.0 - core_cs_avg_grade) * 0.22 + (100 - attendance_rate) * 0.015, 0, 0.9)
     failed_courses = np.random.binomial(n=4, p=failed_prob / 4)
 
-    # Target 1: Academic Standing / Risk Status
-    # Low Risk (0): GPA >= 3.2, attendance >= 75%, failed == 0
-    # Moderate Risk (1): GPA 2.4 - 3.19 or attendance 65-74% or failed == 1
-    # High Risk (2): GPA < 2.4 or attendance < 65% or failed >= 2
+    # Target 1: Academic Standing / Risk Status (5.0 Scale)
+    # Low Risk: CGPA >= 3.50, attendance >= 75%, failed == 0
+    # Moderate Risk: CGPA 2.50 - 3.49 or attendance 65-74% or failed == 1
+    # High Risk: CGPA < 2.50 or attendance < 65% or failed >= 2
     risk_labels = []
     projected_gpas = []
 
@@ -83,15 +84,15 @@ def generate_synthetic_academic_dataset(n_samples: int = 2500, random_state: int
         load = current_credit_load[i]
         stress = stress_level[i]
 
-        # Calculate projected next-term GPA
-        delta = (sh - 15) * 0.03 + (att - 80) * 0.015 - (load - 18) * 0.04 - (fc * 0.15) - (stress - 3) * 0.05
-        proj_gpa = np.clip(round(g + delta + np.random.normal(0, 0.12), 2), 1.00, 4.00)
+        # Projected next-term GPA (5.0 scale)
+        delta = (sh - 16) * 0.035 + (att - 80) * 0.02 - (load - 18) * 0.04 - (fc * 0.2) - (stress - 3) * 0.06
+        proj_gpa = np.clip(round(g + delta + np.random.normal(0, 0.12), 2), 1.00, 5.00)
         projected_gpas.append(proj_gpa)
 
-        # Risk categorization
-        if g < 2.30 or att < 65.0 or fc >= 2 or (load > 21 and g < 2.70):
+        # Risk categorization on 5.0 CGPA scale
+        if g < 2.50 or att < 65.0 or fc >= 2 or (load > 21 and g < 3.00):
             risk_labels.append("High Risk")
-        elif g >= 3.30 and att >= 80.0 and fc == 0 and load <= 21:
+        elif g >= 3.50 and att >= 75.0 and fc == 0 and load <= 22:
             risk_labels.append("Low Risk")
         else:
             risk_labels.append("Moderate Risk")
